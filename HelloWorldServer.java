@@ -28,7 +28,7 @@ public class HelloWorldServer {
             // HTML content to be sent in response
             String response = "<html><body style='text-align: center;'>" +
                               "<h1 style='color: blue;'>Hello, World!</h1>" +
-                              "<p style='font-size: 20px;'>Welcome to my fancy page!</p>" +
+                              "<p style='font-size: 20px;'>Welcome back devops enginer, keep doing great!</p>" +
                               "</body></html>";
             
             // Set response headers
