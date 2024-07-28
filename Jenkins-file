@@ -1,0 +1,43 @@
+pipeline {
+    agent any 
+
+    stages {
+        stage('Code clone') {
+            steps {
+                git url: "https://github.com/shubham5992/DockerFile_Repo.git", branch: "main"
+                echo "Code is cloning"
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                sh "docker build . -t hello-app"
+                echo "Code is building"
+            }
+        }
+        
+        stage('Push') {
+            steps {
+                echo "The code is pushing to DockerHub"
+                withCredentials([usernamePassword(
+                    credentialsId: "dockerCreds",
+                    passwordVariable: "dockerHubPass",
+                    usernameVariable: "dockerHubUser"
+                )]) {
+                    
+                        sh "docker image tag hello-app $dockerHubUser/hello-app:latest"
+                        sh "echo $dockerHubPass | docker login -u $dockerHubUser -p ${env.dockerHubPass}"
+                        sh "docker push $dockerHubUser/hello-app:latest"
+                    
+                }
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                sh "docker run -d -p 8000:8000 --name shubham-app-643813 hello-app"
+                echo "Code is deploying"
+            }
+        }
+    }
+}
