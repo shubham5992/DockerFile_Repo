@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Code clone') {
             steps {
-                git url: "https://github.com/shubham5992/DockerFile_Repo.git", branch: "main"
+                git url: "https://github.com/shubham5992/DockerFile_Repo.git", branch: "dev"
                 echo "Code is cloning"
             }
         }
